@@ -21,8 +21,8 @@ mongoose
 // API routes
 app.use('/api/resumebuilder', resumeRoutes);
 
-// Serve frontend static files
-const frontendBuildPath = path.join(__dirname, 'frontend', 'build');
+// Serve frontend static files (Vite output)
+const frontendBuildPath = path.join(__dirname, 'frontend', 'dist');
 app.use(express.static(frontendBuildPath));
 
 // Fallback for all non-API requests
@@ -30,6 +30,7 @@ app.use((req, res, next) => {
   if (req.path.startsWith('/api/')) return next();
   res.sendFile(path.join(frontendBuildPath, 'index.html'));
 });
+
 
 const PORT = process.env.PORT || 3006;
 app.listen(PORT, () => console.log(`✅ Backend running on port ${PORT}`));
