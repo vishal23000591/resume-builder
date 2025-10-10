@@ -24,9 +24,12 @@ app.use('/api/resumebuilder', resumeRoutes);
 
 // Serve React frontend in production
 app.use(express.static(path.join(__dirname, 'frontend/build')));
-app.get('*', (req, res) => {
+// New (Express 6+ compatible)
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
+
+
 
 // Start server
 const PORT = process.env.PORT || 3006;
