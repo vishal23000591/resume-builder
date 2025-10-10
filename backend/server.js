@@ -1,21 +1,33 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const resumeRoutes = require('./routes/resumes');
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Connect MongoDB
-mongoose.connect(
-  'mongodb+srv://vishalsuresh1975_db_user:48FtJy1ih89iMjOK@revaaicluster.gfcs2nz.mongodb.net/?retryWrites=true&w=majority',
-  { useNewUrlParser: true, useUnifiedTopology: true }
-)
-.then(() => console.log('✅ MongoDB connected'))
-.catch((err) => console.error('MongoDB connection error:', err));
+// MongoDB connection
+mongoose
+  .connect(
+    'mongodb+srv://vishalsuresh1975_db_user:48FtJy1ih89iMjOK@revaaicluster.gfcs2nz.mongodb.net/?retryWrites=true&w=majority',
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch((err) => console.error('MongoDB connection error:', err));
 
-// Use routes
+// API routes
 app.use('/api/resumebuilder', resumeRoutes);
 
-app.listen(3006, () => console.log('✅ Backend running on http://localhost:3006'));
+// Serve React frontend in production
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+});
+
+// Start server
+const PORT = process.env.PORT || 3006;
+app.listen(PORT, () => console.log(`✅ Backend running on port ${PORT}`));
