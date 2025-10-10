@@ -21,14 +21,14 @@ mongoose
 // API routes
 app.use('/api/resumebuilder', resumeRoutes);
 
-// Serve frontend build
-const frontendPath = path.join(__dirname, 'frontend', 'build');
-app.use(express.static(frontendPath));
+// Serve frontend static files
+const frontendBuildPath = path.join(__dirname, 'frontend', 'build');
+app.use(express.static(frontendBuildPath));
 
-// Fallback for non-API routes
-app.get((req, res, next) => {
+// Fallback for all non-API requests
+app.use((req, res, next) => {
   if (req.path.startsWith('/api/')) return next();
-  res.sendFile(path.join(frontendPath, 'index.html'));
+  res.sendFile(path.join(frontendBuildPath, 'index.html'));
 });
 
 const PORT = process.env.PORT || 3006;
