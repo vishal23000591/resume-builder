@@ -7,7 +7,7 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="brand">
-        <img src="/logo.png" alt="RevaAI" className="logo" />
+        
         <span className="brand-name">REVA AI</span>
       </div>
       <div className="nav-links">
