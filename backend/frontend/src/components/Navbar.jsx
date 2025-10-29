@@ -11,7 +11,14 @@ export default function Navbar() {
         <span className="brand-name">REVA AI</span>
       </div>
       <div className="nav-links">
-        <Link to="/home" className={location.pathname === "/home" ? "active" : ""}>Home</Link>
+        <a
+  href="https://reva-ai-k7nm.onrender.com"
+  className={location.pathname === "/home" ? "active" : ""}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Home
+</a>
         <Link to="/builder" className={location.pathname === "/builder" ? "active" : ""}>Builder</Link>
         <Link to="/preview" className={location.pathname === "/preview" ? "active" : ""}>Preview</Link>
         <Link to="/templates" className={location.pathname === "/templates" ? "active" : ""}>Templates</Link>
